@@ -13,10 +13,11 @@ import (
    "os/user"
    "path"
    "strings"
+   "strconv"
    "github.com/go-ldap/ldap/v3"
 )
 
-var baseRubberbandApiUri = "https://rubberband.example.com/api/upload"
+var baseRubberbandApiUri = os.Getenv("RUBBERBAND_URL") + "/api/upload"
 var maxBodySyncSize = 400000000 // 400 MB
 
 type response_struct struct {
@@ -70,10 +71,15 @@ func getUserEmail(username string) string {
 
 func MakeRequest(Files []string, Tags string, Async bool, Expdate string) string {
    client := &http.Client{}
-
-   // get system user
-   usr, _ := user.Current()
-   userEmail := getUserEmail(usr.Username)
+   useLdap, _ := strconv.ParseBool(os.Getenv("RBCLI_USE_LDAP"))
+   var userEmail string
+   if useLdap {
+     // get system user
+     usr, _ := user.Current()
+     userEmail = getUserEmail(usr.Username)
+   } else {
+     userEmail = "ghost"
+   }
 
    // add files
    bodyBuf := &bytes.Buffer{}
@@ -117,7 +123,7 @@ func MakeRequest(Files []string, Tags string, Async bool, Expdate string) string
    check(err)
 
    request.Header.Add("Content-Type", contentType)
-   request.Header.Add("X-Api-Token", "RUBBERBANDAPITOKENGOESHERE")
+   request.Header.Add("X-Api-Token", os.Getenv("RUBBERBAND_API_KEY"))
    request.Header.Add("X-Forwarded-Email", userEmail)
    response, err := client.Do(request)
    check(err)
@@ -182,9 +188,9 @@ func main() {
    var expdate string
 
    app := cli.NewApp()
-   app.Name = "rbcli"
+   app.Name = "rubberband-cli"
    app.Usage = "the rubberband command line client"
-   app.Version = "0.0.3"
+   app.Version = "1.0.0"
 
    app.Flags = []cli.Flag{
       cli.BoolFlag{
