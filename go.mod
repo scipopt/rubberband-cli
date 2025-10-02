@@ -1,6 +1,6 @@
 module github.com/scipopt/rubberband-cli
 
-go 1.18
+go 1.23.0
 
 require (
 	github.com/go-ldap/ldap/v3 v3.4.12

@@ -12,6 +12,7 @@ go get github.com/scipopt/rubberband-cli
 
 or:
 ```
+go mod tidy
 go build .
 ```
 

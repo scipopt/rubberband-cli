@@ -1,0 +1,19 @@
+name: Build cli
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests-server:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '^1.25.1'
+      - name: Build project
+        run: go build .
+      - name: Run cli help
+        run: ./rubberband-cli
