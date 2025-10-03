@@ -12,24 +12,22 @@ go get github.com/scipopt/rubberband-cli
 
 or:
 ```
-go mod init rbcli
-go get github.com/go-ldap/ldap/v3
-go get github.com/urfave/cli
+go mod tidy
 go build .
 ```
 
 ## Use
 
 ```
-$ rbcli
+$ rubberband-cli
 NAME:
-   rbcli - the rubberband command line client
+   rubberband-cli - the rubberband command line client
 
 USAGE:
-   rbcli [global options] command [command options] [arguments...]
+   rubberband-cli [global options] command [command options] [arguments...]
    
 VERSION:
-   0.0.3
+   1.0.0
    
 COMMANDS:
      upload, up  Upload a list of related output files for parsing and processing.
@@ -45,5 +43,12 @@ GLOBAL OPTIONS:
 Standard usage:
 
 ```
-rbcli upload myfile.{out,set,err,meta}
+RUBBERBAND_URL="https://rubberband.example.com" RUBBERBAND_API_KEY="MYAPIKEY" rbcli upload myfile.{out,set,err,meta}
 ```
+
+The following environment variables are required to run:
+- RUBBERBAND_URL
+- RUBBERBAND_API_KEY
+
+The following optional environment variable can also be set:
+- RBCLI_USE_LDAP 
