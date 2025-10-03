@@ -36,6 +36,7 @@ COMMANDS:
 GLOBAL OPTIONS:
    --async        Run this command asynchronously. Receive the results in an email.
    --tags value   A comma-separated list of tags to associate with the uploaded run.
+   -e value       The expirationdate, should be provided in form "2017-Aug-24".
    --help, -h     show help
    --version, -v  print the version
 ```
