@@ -44,7 +44,7 @@ GLOBAL OPTIONS:
 Standard usage:
 
 ```
-RUBBERBAND_URL="https://rubberband.example.com" RUBBERBAND_API_KEY="MYAPIKEY" rbcli upload myfile.{out,set,err,meta}
+RUBBERBAND_URL="https://rubberband.example.com" RUBBERBAND_API_KEY="MYAPIKEY" rubberband-cli upload myfile.{out,set,err,meta}
 ```
 
 The following environment variables are required to run:
